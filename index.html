@@ -23,11 +23,20 @@
     h3{font-size:2rem; line-height:1.2; font-family:'Playfair Display', serif; color: #003366;}
     .hero-bg{background:linear-gradient(135deg, rgba(26,117,255,0.12), rgba(77,148,255,0.12)); backdrop-filter: blur(4px)}
     .soft-card{background:var(--card); box-shadow:0 8px 20px rgba(12,16,23,0.06); border-radius:14px; transition: all 0.2s ease; border: 2px solid #003366;}
+    .soft-card:hover{transform: scale(1.02); box-shadow:0 6px 16px rgba(12,16,23,0.1);}
     .soft-card h3, .soft-card p, .soft-card .text-xs, .soft-card strong, .soft-card .text-sm {
         color: #FFFFFF;
     }
-    .soft-card:hover{transform: scale(1.02); box-shadow:0 6px 16px rgba(12,16,23,0.1);}
-    .pill{background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; padding:12px 18px; border-radius:999px; font-weight:600}
+    .pill, .nav-button {
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#fff;
+      padding:12px 18px;
+      border-radius:999px;
+      font-weight:600;
+    }
+    .pill:hover, .nav-button:hover {
+      opacity: 0.9;
+    }
     .wave{position:relative}
     .wave svg{display:block}
     .nav-link.active{font-weight:700; text-decoration:underline}
@@ -106,6 +115,13 @@
         transform: translateY(0);
         opacity: 1;
       }
+	  /* Make only homepage headlines white */
+#page-home h1,
+#page-home h2,
+#page-home h3 {
+  color: #FFFFFF !important;
+}
+
     }
   </style>
 </head>
@@ -122,12 +138,12 @@
       </div>
     </div>
     <div class="hidden md:flex items-center gap-6 text-sm">
-      <a href="#home" data-nav="home" class="nav-link nav-button" style="--delay: 0s;">Home</a>
-      <a href="#treatments" data-nav="treatments" class="nav-link nav-button" style="--delay: 0.1s;">Treatments</a>
-      <a href="#aboutus" data-nav="aboutus" class="nav-link nav-button" style="--delay: 0.2s;">About Us</a>
-      <a href="#photos" data-nav="photos" class="nav-link nav-button" style="--delay: 0.3s;">Photos</a>
-      <a href="#contact" data-nav="contact" class="nav-link nav-button" style="--delay: 0.4s;">Contact</a>
-      <a href="#contact" class="pill nav-button" style="--delay: 0.5s;">Book Consultation</a>
+      <a href="#home" data-nav="home" class="nav-link nav-button animated-button" style="--delay: 0s;">Home</a>
+      <a href="#treatments" data-nav="treatments" class="nav-link nav-button animated-button" style="--delay: 0.1s;">Treatments</a>
+      <a href="#aboutus" data-nav="aboutus" class="nav-link nav-button animated-button" style="--delay: 0.2s;">About Us</a>
+      <a href="#photos" data-nav="photos" class="nav-link nav-button animated-button" style="--delay: 0.3s;">Photos</a>
+      <a href="#contact" data-nav="contact" class="nav-link nav-button animated-button" style="--delay: 0.4s;">Contact</a>
+      <a href="#contact" class="pill nav-button animated-button" style="--delay: 0.5s;">Book Consultation</a>
     </div>
     <button class="md:hidden p-2 soft-card" id="mobileToggle" aria-label="Open menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#003366" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -177,7 +193,7 @@
         </div>
       </header>
       <div class="mt-8 text-center">
-        <h3 class="text-2xl font-semibold mb-3" style="color: #003366;">Book your free consultation now</h3>
+        <h1 class="text-2xl font-semibold mb-3" style="color: #003366;">Book your free consultation now</h1>
         <button data-nav="contact" class="pill animated-button" style="--delay: 0.8s;">Book Now</button>
       </div>
       <section class="mt-8">
@@ -569,4 +585,3 @@
   </script>
 </body>
 </html>
-
