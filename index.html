@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SG Homoeopathy Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --bg:#F5F5F5; /* off-white */
+      --muted:#b0c4de;
+      --accent:#1a75ff; /* bright blue */
+      --accent-2:#4d94ff; /* light blue */
+      --card:#003366; /* blue for cards */
+      --glass: rgba(0,51,102,0.7);
+    }
+    body{font-family:'Lora', serif, system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; background:linear-gradient(180deg,var(--bg),#E8E8E8); color:#003366; font-size:1.5rem;}
+    h1{font-size:3.5rem; line-height:1.2; font-family:'Playfair Display', serif; color: #003366;}
+    h2{font-size:2.75rem; line-height:1.2; font-family:'Playfair Display', serif; color: #003366;}
+    h3{font-size:2rem; line-height:1.2; font-family:'Playfair Display', serif; color: #003366;}
+    .hero-bg{background:linear-gradient(135deg, rgba(26,117,255,0.12), rgba(77,148,255,0.12)); backdrop-filter: blur(4px)}
+    .soft-card{background:var(--card); box-shadow:0 8px 20px rgba(12,16,23,0.06); border-radius:14px; transition: all 0.2s ease; border: 2px solid #003366;}
+    .soft-card:hover{transform: scale(1.02); box-shadow:0 6px 16px rgba(12,16,23,0.1);}
+    .soft-card h3, .soft-card p, .soft-card .text-xs, .soft-card strong, .soft-card .text-sm {
+        color: #FFFFFF;
+    }
+    .pill, .nav-button {
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#fff;
+      padding:12px 18px;
+      border-radius:999px;
+      font-weight:600;
+    }
+    .pill:hover, .nav-button:hover {
+      opacity: 0.9;
+    }
+    .wave{position:relative}
+    .wave svg{display:block}
+    .nav-link.active{font-weight:700; text-decoration:underline}
+    .nav-link:hover {
+        text-decoration: underline;
+    }
+    .nav-button {
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: background-color 0.3s ease;
+      background-color: transparent;
+    }
+    .nav-button:hover {
+      background-color: rgba(0,51,102,0.1);
+    }
+    .animated-button {
+      opacity: 0;
+      animation: slideInFromBottom 0.5s ease-out forwards;
+      animation-delay: var(--delay);
+    }
+    .animated-treatment-card {
+      opacity: 0;
+      animation: slideInFromBottom 0.5s ease-out forwards;
+      animation-delay: var(--delay);
+    }
+    p[id^="summary-"] {
+      background: #E8E8E8;
+      padding: 8px;
+      border-radius: 8px;
+      margin-top: 8px;
+      max-height: 120px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) #E8E8E8;
+    }
+    p[id^="summary-"]::-webkit-scrollbar {
+      width: 6px;
+    }
+    p[id^="summary-"]::-webkit-scrollbar-thumb {
+      background-color: var(--accent);
+      border-radius: 3px;
+    }
+    p[id^="summary-"]::-webkit-scrollbar-track {
+      background-color: #E8E8E8;
+    }
+    button[id^="close-"] {
+      margin-top: 4px;
+    }
+    .hero-slideshow {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-slideshow img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+
+    .hero-slideshow img.active {
+        opacity: 1;
+    }
+    @keyframes slideInFromBottom {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+	  /* Make only homepage headlines white */
+#page-home h1,
+#page-home h2,
+#page-home h3 {
+  color: #FFFFFF !important;
+}
+
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <!-- NAV -->
+  <nav class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full soft-card flex items-center justify-center">
+        <img src="logo.png" alt="SG Homoeopathy Clinic Logo" class="w-10 h-10 rounded-full">
+      </div>
+      <div>
+        <div class="text-lg font-semibold" style="color: #003366;">SG Homoeopathy Clinic</div>
+        <div class="text-sm text-gray-500">natural healing</div>
+      </div>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-sm">
+      <a href="#home" data-nav="home" class="nav-link nav-button animated-button" style="--delay: 0s;">Home</a>
+      <a href="#treatments" data-nav="treatments" class="nav-link nav-button animated-button" style="--delay: 0.1s;">Treatments</a>
+      <a href="#aboutus" data-nav="aboutus" class="nav-link nav-button animated-button" style="--delay: 0.2s;">About Us</a>
+      <a href="#photos" data-nav="photos" class="nav-link nav-button animated-button" style="--delay: 0.3s;">Photos</a>
+      <a href="#contact" data-nav="contact" class="nav-link nav-button animated-button" style="--delay: 0.4s;">Contact</a>
+      <a href="#contact" class="pill nav-button animated-button" style="--delay: 0.5s;">Book Consultation</a>
+    </div>
+    <button class="md:hidden p-2 soft-card" id="mobileToggle" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="#003366" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </nav>
+  <!-- PAGES CONTAINER (SPA) -->
+  <main class="max-w-6xl mx-auto px-6 pb-12">
+    <!-- HOME PAGE -->
+    <section id="page-home" class="page">
+      <header class="hero-bg mt-6 px-6 py-10 rounded-2xl soft-card shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-semibold leading-tight" style="color: #FFFFFF;">Struggling With Hairloss? or Struggling with dull skin?</h1>
+            <p class="mt-4 max-w-xl" style="color: #FFFFFF;">Want to stop hair fall and grow new hair?</p>
+            <div class="mt-6 flex gap-4 items-center">
+              <button data-nav="contact" class="pill animated-button" style="--delay: 0.6s;">Book an appointment</button>
+              <button data-nav="treatments" class="text-sm text-gray-700 hover:underline animated-button" style="--delay: 0.7s;">View treatments →</button>
+            </div>
+            <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+              <div class="soft-card p-3 flex items-center gap-3">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v20" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></svg>
+                <div>
+                  <div class="font-semibold" style="color: #FFFFFF;">Trusted Care</div>
+                  <div class="text-xs" style="color: #FFFFFF;">Certified remedies</div>
+                </div>
+              </div>
+              <div class="soft-card p-3 flex items-center gap-3">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12h16" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></svg>
+                <div>
+                  <div class="font-semibold" style="color: #FFFFFF;">Personalized</div>
+                  <div class="text-xs" style="color: #FFFFFF;">Individualized plan</div>
+                </div>
+              </div>
+              <div class="soft-card p-3 flex items-center gap-3">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/></svg>
+                <div>
+                  <div class="font-semibold" style="color: #FFFFFF;">No harsh chemicals</div>
+                  <div class="text-xs" style="color: #FFFFFF;">Natural way</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:block hero-slideshow w-full rounded-xl shadow-md" style="height: 400px;">
+            <img src="1poster1.png" alt="Homoeopathy poster for hair and skin treatments" class="active"/>
+            <img src="1poster2.png" alt="Second homoeopathy poster"/>
+          </div>
+        </div>
+      </header>
+      <div class="mt-8 text-center">
+        <h1 class="text-2xl font-semibold mb-3" style="color: #003366;">Book your free consultation now</h1>
+        <button data-nav="contact" class="pill animated-button" style="--delay: 0.8s;">Book Now</button>
+      </div>
+      <section class="mt-8">
+        <div class="soft-card p-6">
+          <h2 class="text-2xl font-semibold" style="color: #FFFFFF;">Our Treatments</h2>
+          <p class="mt-1" style="color: #FFFFFF;">Click any treatment to learn more on the Treatments page.</p>
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="homeTreatmentGrid">
+            <!-- All treatment cards will be injected here by JS -->
+          </div>
+        </div>
+      </section>
+      <section class="mt-8">
+        <h2 class="text-2xl font-semibold mb-4" style="color: #003366;">Meet Our Clinic</h2>
+        <div id="clinicSlider" class="relative overflow-hidden">
+          <div class="flex transition-transform duration-500" id="clinicSlides">
+            <div class="min-w-full p-2">
+              <div class="relative">
+                <div class="soft-card p-6">
+                  <div class="rounded-lg w-full h-64 overflow-hidden shadow-sm flex items-center justify-center">
+                    <img src="2poster1.png" alt="Dr. Ashok Kumar G.S, Chief Homoeopath" class="w-full h-full object-cover"/>
+                  </div>
+                  <div class="mt-4">
+                    <h3 class="text-lg font-semibold" style="color: #FFFFFF;">Meet Dr. Ashok Kumar G.S — Chief Homoeopath</h3>
+                    <p class="text-sm" style="color: #FFFFFF;">24 years of practice in treating hair & skin conditions with holistic protocols and safe remedies.</p>
+                    <div class="mt-3 text-sm" style="color: #FFFFFF;">
+                      <strong>Opening hours:</strong> Mon–Sat, 10:00 AM – 2:00 PM and 4:30 PM – 8:30 PM
+                    </div>
+                  </div>
+                </div>
+                <div class="absolute -right-6 -bottom-6 p-4 soft-card" style="width:180px">
+                  <div class="text-xs" style="color: #FFFFFF;">Quick call</div>
+                  <div class="font-semibold mt-1" style="color: #FFFFFF;">+91 9842392644</div>
+                  <div class="text-xs" style="color: #FFFFFF;">Or book online</div>
+                </div>
+              </div>
+            </div>
+            <div class="min-w-full p-2">
+              <div class="relative">
+                <div class="soft-card p-6">
+                  <div class="rounded-lg w-full h-64 overflow-hidden shadow-sm flex items-center justify-center">
+                    <img src="2poster2.png" alt="A view of the clinic interior" class="w-full h-full object-cover"/>
+                  </div>
+                  <div class="mt-4">
+                    <h3 class="text-lg font-semibold" style="color: #FFFFFF;">Our Clinic - A Serene Space</h3>
+                    <p class="text-sm" style="color: #FFFFFF;">A peaceful and hygienic environment for your consultation and healing journey.</p>
+                    <div class="mt-3 text-sm" style="color: #FFFFFF;">
+                      <strong>Location:</strong> 123 Wellness Street, YourCity
+                    </div>
+                  </div>
+                </div>
+                <div class="absolute -right-6 -bottom-6 p-4 soft-card" style="width:180px">
+                  <div class="text-xs" style="color: #FFFFFF;">Quick call</div>
+                  <div class="font-semibold mt-1" style="color: #FFFFFF;">+91 9842392644</div>
+                  <div class="text-xs" style="color: #FFFFFF;">Or book online</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button id="prevClinic" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white p-2 rounded shadow">‹</button>
+          <button id="nextClinic" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white p-2 rounded shadow">›</button>
+        </div>
+      </section>
+    </section>
+    <!-- TREATMENTS PAGE -->
+    <section id="page-treatments" class="page hidden mt-6">
+      <div class="soft-card p-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-semibold" style="color: #FFFFFF;">Treatments</h2>
+          <div class="text-sm" style="color: #FFFFFF;">Click any treatment to learn more on the Treatments page.</div>
+        </div>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="treatmentGrid">
+          <!-- All treatment cards with summaries will be injected here by JS -->
+        </div>
+      </div>
+    </section>
+    <!-- TREATMENT SUMMARY PAGE -->
+    <section id="page-summary" class="page hidden mt-6">
+      <div class="soft-card p-6 flex flex-col items-center">
+        <button id="backToTreatments" class="self-start text-sm text-gray-700 hover:underline">← Back to Treatments</button>
+        <div class="w-full h-64 overflow-hidden rounded-md shadow-sm flex items-center justify-center">
+          <img id="summary-image" src="" alt="" class="w-full h-full object-cover"/>
+        </div>
+        <h2 id="summary-title" class="text-2xl font-semibold mt-4" style="color: #FFFFFF;"></h2>
+        <div id="summary-content" class="text-gray-600 mt-2 text-center" style="color: #FFFFFF;"></div>
+        <div class="mt-6">
+          <button data-nav="contact" class="pill animated-button">Book a Consultation</button>
+        </div>
+      </div>
+    </section>
+    <!-- PHOTOS PAGE -->
+    <section id="page-photos" class="page hidden mt-6">
+      <div class="soft-card p-6">
+        <h2 class="text-2xl font-semibold" style="color: #FFFFFF;">Clinic Photos</h2>
+        <p class="mt-1" style="color: #FFFFFF;">A collection of our clinic photos.</p>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="photoGrid">
+          <div class="soft-card w-full h-64 overflow-hidden rounded-md flex items-center justify-center">
+            <img src="photo1.png" alt="Clinic interior" class="w-full h-full object-cover"/>
+          </div>
+          <div class="soft-card w-full h-64 overflow-hidden rounded-md flex items-center justify-center">
+            <img src="photo2.png" alt="Reception area" class="w-full h-full object-cover"/>
+          </div>
+          <div class="soft-card w-full h-64 overflow-hidden rounded-md flex items-center justify-center">
+            <img src="photo3.png" alt="Consultation room" class="w-full h-full object-cover"/>
+          </div>
+          <div class="soft-card w-full h-64 overflow-hidden rounded-md flex items-center justify-center">
+            <img src="photo4.png" alt="Homoeopathy remedies" class="w-full h-full object-cover"/>
+          </div>
+          <div class="soft-card w-full h-64 overflow-hidden rounded-md flex items-center justify-center">
+            <img src="photo5.png" alt="Waiting area" class="w-full h-full object-cover"/>
+          </div>
+          <!-- Add more photo divs here -->
+        </div>
+      </div>
+    </section>
+    <!-- ABOUT US PAGE -->
+    <section id="page-aboutus" class="page hidden mt-6">
+      <div class="soft-card p-6">
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="md:col-span-2">
+            <h2 class="text-2xl font-semibold mb-3" style="color: #FFFFFF;">Dr. Ashok Kumar G.S – Expert Homoeopathy Doctor in Kallakurichi for Skin, Hair, and Kidney Care</h2>
+            <p style="color: #FFFFFF;">Dr. Ashok Kumar G.S is a renowned homoeopathy doctor in Kallakurichi with 24 years of clinical experience in treating patients naturally and effectively. He completed his BHMS in 1993 from Vinayaka Mission, laying a strong foundation in classical homoeopathy. Over the decades, he has successfully treated thousands of patients and has become one of the most trusted names for skin Kallakurichi, hair Kallakurichi, and kidney Kallakurichi treatments.</p>
+          </div>
+          <div>
+            <h3 class="font-semibold" style="color: #FFFFFF;">Skin Kallakurichi – Trusted Homoeopathy Care</h3>
+            <p class="mt-2" style="color: #FFFFFF;">When it comes to skin Kallakurichi, Dr. Ashok Kumar G.S is a specialist. Patients struggling with acne, eczema, psoriasis, skin rashes, fungal infections, pigmentation, and chronic skin allergies visit his clinic for reliable solutions. His treatments for skin Kallakurichi focus not just on external symptoms but also on internal balance, ensuring lasting recovery. People searching for skin treatment in Kallakurichi often turn to his clinic because of his proven results in skin Kallakurichi care.</p>
+          </div>
+          <div>
+            <h3 class="font-semibold" style="color: #FFFFFF;">Hair Kallakurichi – Natural Hair Solutions</h3>
+            <p class="mt-2" style="color: #FFFFFF;">Hair problems are another key focus of his practice. For conditions such as hair fall, dandruff, premature greying, alopecia, and thinning hair, his homoeopathy treatments in Kallakurichi have helped countless patients restore confidence. Those seeking hair Kallakurichi solutions trust his clinic for natural and side-effect-free remedies. His work in hair Kallakurichi is widely recognized, and many patients recommend his clinic as one of the best for hair care in Kallakurichi.</p>
+          </div>
+          <div>
+            <h3 class="font-semibold" style="color: #FFFFFF;">Kidney Kallakurichi – Safe & Effective Care</h3>
+            <p class="mt-2" style="color: #FFFFFF;">For kidney-related issues such as kidney stones, urinary tract infections, and other renal conditions, his clinic in Kallakurichi has become a preferred choice. His expertise in kidney Kallakurichi care ensures that patients get relief without the harsh side effects of conventional medicine. People with long-standing kidney issues often choose Dr. Ashok Kumar G.S in Kallakurichi for dependable kidney treatment in Kallakurichi.</p>
+          </div>
+          <div class="md:col-span-2">
+            <h3 class="font-semibold mt-4" style="color: #FFFFFF;">Why Choose Dr. Ashok Kumar G.S in Kallakurichi?</h3>
+            <ul class="list-disc list-inside mt-2" style="color: #FFFFFF;">
+                <li>24 years of experience in skin, hair, and kidney care</li>
+                <li>Studied BHMS at Vinayaka Mission (1993)</li>
+                <li>Specialist in skin Kallakurichi, hair Kallakurichi, and kidney Kallakurichi</li>
+                <li>Focus on natural, safe, and effective remedies</li>
+                <li>Trusted by patients across Kallakurichi for holistic treatments</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mt-4" style="color: #FFFFFF;">Clinic</h4>
+            <p class="mt-2" style="color: #FFFFFF;">SG Homoeopathy Clinic provides a calm, hygienic environment for consultations and follow-ups. We offer both in-person and teleconsultations.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold mt-4" style="color: #FFFFFF;">Location</h4>
+            <p class="mt-2" style="color: #FFFFFF;">Gandhi Rd, Kallakurichi, Raja Nagar, Sankarapuram, Kallakurichi<br/>Open: Monday to Saturday, 10:00 AM – 2:00 PM and 4:30 PM – 8:30 PM.<br/>Sunday: Appointments only.</p>
+            <div class="mt-4 w-full rounded-md overflow-hidden" style="height:220px;">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3910.4284560411874!2d78.95679807572703!3d11.73804868846146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bab9f96b610c595%3A0x2f6b8b8d0a31622f!2sGandhi%20Rd%2C%20Raja%20Nagar%2C%20Sankarapuram%2C%20Kallakurichi%2C%20Tamil%20Nadu%20606202%2C%20India!5e0!3m2!1sen!2sus!4v1726359929946!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CONTACT PAGE -->
+    <section id="page-contact" class="page hidden mt-6">
+      <div class="soft-card p-6">
+        <h1 class="text-2xl font-semibold" style="color: #FFFFFF;">Contact</h1>
+        <h1 class="text-2xl font-semibold" style="color: #FFFFFF;">Get A Free Consultation.</h1>
+        <p class="mt-2" style="color: #FFFFFF;">Send us your details and we'll reach out within 24 hrs.</p>
+        <form id="contactForm" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm" style="color: #FFFFFF;">Full name</label>
+            <input required name="name" class="w-full mt-1 p-3 rounded-md border border-gray-300 bg-white text-gray-800" placeholder="Your name" />
+          </div>
+          <div>
+            <label class="text-sm" style="color: #FFFFFF;">Phone number</label>
+            <input required name="phone" class="w-full mt-1 p-3 rounded-md border border-gray-300 bg-white text-gray-800" placeholder="+91 9XXXXXXXXX" />
+          </div>
+          <div class="md:col-span-2">
+            <label class="text-sm" style="color: #FFFFFF;">Email</label>
+            <input name="email" type="email" class="w-full mt-1 p-3 rounded-md border border-gray-300 bg-white text-gray-800" placeholder="you@example.com" />
+          </div>
+          <div class="md:col-span-2">
+            <button type="submit" class="pill animated-button">Submit</button>
+            <p id="contactMsg" class="text-sm text-green-600 mt-3 hidden">Thanks — we will contact you within 24hrs.</p>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <footer class="border-t border-gray-300 mt-10 py-6">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-sm text-gray-500">© <span id="year"></span> SG Homoeopathy Clinic. All rights reserved.</div>
+      <div class="text-sm text-gray-500">Follow us: <span class="ml-2">Instagram • Facebook • WhatsApp</span></div>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const heroSlides = document.querySelectorAll('.hero-slideshow img');
+      const clinicSlides = document.getElementById('clinicSlides');
+      const prevBtn = document.getElementById('prevClinic');
+      const nextBtn = document.getElementById('nextClinic');
+      let currentHeroIndex = 0;
+      let currentClinicIndex = 0;
+
+      function updateHeroSlideshow() {
+          heroSlides.forEach(img => img.classList.remove('active'));
+          currentHeroIndex = (currentHeroIndex + 1) % heroSlides.length;
+          heroSlides[currentHeroIndex].classList.add('active');
+      }
+
+      if (heroSlides.length > 1) {
+          setInterval(updateHeroSlideshow, 5000); // Change image every 5 seconds
+          heroSlides[0].classList.add('active'); // Activate first image on load
+      }
+
+      function updateClinicSlider() {
+          if(clinicSlides) clinicSlides.style.transform = `translateX(-${currentClinicIndex * 100}%)`;
+      }
+      if (prevBtn && nextBtn && clinicSlides) {
+        prevBtn.addEventListener('click', () => {
+          const numSlides = clinicSlides.children.length;
+          currentClinicIndex = (currentClinicIndex > 0) ? currentClinicIndex - 1 : numSlides - 1;
+          updateClinicSlider();
+        });
+        nextBtn.addEventListener('click', () => {
+          const numSlides = clinicSlides.children.length;
+          currentClinicIndex = (currentClinicIndex < numSlides - 1) ? currentClinicIndex + 1 : 0;
+          updateClinicSlider();
+        });
+      }
+      
+      const pages = ['home', 'treatments', 'aboutus', 'photos', 'contact', 'summary'];
+      function showPage(name){
+        pages.forEach(p => {
+          const el = document.getElementById('page-' + p);
+          if (el) {
+            el.classList.toggle('hidden', p !== name);
+          }
+        });
+        document.querySelectorAll('.nav-link').forEach(a => {
+          a.classList.toggle('active', a.dataset.nav === name);
+        });
+        history.replaceState(null, '', '#' + name);
+      }
+      
+      const treatments = {
+        'Pimples': 'Tired of constantly battling stubborn acne and pimples? It\'s frustrating when breakouts affect your confidence and leave lasting marks. Our homoeopathic remedies work from the inside out to reduce inflammation and address the root cause, giving you clear, healthy skin naturally.',
+        'Dark Spots & Uneven Skin Tone': 'Dealing with dull, uneven skin due to dark spots? This can make your skin look tired and older. We offer personalized homoeopathic plans to naturally support your skin\'s pigmentation, leading to a brighter and more even complexion.',
+        'Hair Fall & Weak Hair': 'Experiencing excessive hair fall or noticing your hair is weak and brittle? Losing your hair can be a source of stress and can significantly impact your self-esteem. Our specialized homoeopathic treatments strengthen hair roots, reduce shedding, and improve overall hair health without any harsh chemicals.',
+        'Dandruff & Itchy Scalp': 'Is a flaky, itchy scalp causing you discomfort and embarrassment? The constant itching and visible flakes can be a major distraction and make you feel self-conscious. Our gentle, natural remedies soothe your scalp, eliminate dandruff, and restore a healthy balance to prevent its return.',
+        'Fungal & Ringworm Infections': 'Dealing with persistent fungal or ringworm infections that won\'t go away? These infections can be uncomfortable, unsightly, and resistant to conventional treatments. Our safe and effective homoeopathic remedies work to combat the infection from within, promoting a lasting cure without side effects.',
+        'Dark Circles': 'Are dark circles making you look tired and exhausted, even when you\'re well-rested? This stubborn problem can make you feel self-conscious and can be difficult to conceal with makeup. We provide gentle, constitutional remedies that improve circulation and address the underlying causes of dark circles for a brighter, more refreshed look.',
+        'Plaques & Psoriasis': 'Suffering from the discomfort and frustration of psoriasis plaques? The chronic irritation, scaling, and inflammation can be incredibly challenging to manage and can impact your quality of life. Our personalized homoeopathic plans focus on managing the symptoms of psoriasis and reducing inflammation by addressing the internal imbalances that trigger the condition.',
+        'Hair Density & Growth': 'Wishing you had thicker, fuller hair but struggling with slow growth? Sparse hair can be frustrating, and many products offer false promises. We use constitutional remedies to stimulate healthy hair follicles and promote natural regrowth, helping you achieve thicker, denser hair over time.',
+        'Baldness & Alopecia Areata': 'Facing the emotional and physical challenges of baldness or alopecia areata? The unexpected loss of hair can be a deeply upsetting experience and a major blow to your confidence. Our holistic treatments are designed to support the body\'s natural healing processes, aiming to halt hair loss and encourage regrowth.',
+        'Grey Hair': 'Concerned about premature grey hair and its effect on your appearance? Grey hair can make you feel older than you are and can be a sign of internal imbalances. Our homoeopathic remedies work to support the natural pigmentation of your hair, helping to reduce and even reverse premature greying.',
+        'Kidney Disorders': 'Struggling with a diagnosed kidney disorder and seeking a gentle alternative? Kidney issues can be serious and require careful management, often with intense medical interventions. We offer supportive homoeopathic care that works alongside conventional treatment to improve kidney function and promote overall wellness.',
+        'Kidney Stones': 'Experiencing the sharp, debilitating pain of kidney stones? The pain is often unbearable, and the prospect of surgery or harsh medication can be daunting. Our natural treatments help dissolve kidney stones and ease their passage, providing relief and helping to prevent future formation.',
+        'Urinary Infection': 'Suffering from frequent and painful urinary tract infections? The recurring nature of UTIs can disrupt your life and make you feel constantly unwell. Our effective homoeopathic remedies help to treat existing infections and strengthen your body\'s natural defenses to prevent future occurrences.',
+        'Polycystic Ovary Syndrome (PCOS)': 'Living with the challenging symptoms of Polycystic Ovary Syndrome (PCOS)? The hormonal imbalance, irregular periods, and other symptoms can feel overwhelming and difficult to control. Our holistic approach focuses on managing PCOS symptoms and restoring hormonal balance naturally, improving your overall health and well-being.',
+        'Fibroid Uterus': 'Dealing with the pain and discomfort of uterine fibroids? Fibroids can cause heavy bleeding, pelvic pain, and other symptoms that affect your daily life. Our gentle treatments are designed to reduce the size of fibroids and alleviate associated symptoms, offering a natural path to relief.',
+        'Eczema': 'Suffering from red, itchy, and inflamed skin due to eczema? The constant irritation and dryness can be incredibly uncomfortable and embarrassing, affecting your daily activities. Our personalized homoeopathic remedies target the root cause of your eczema, helping to soothe skin and reduce inflammation for long-lasting relief.',
+        'Skin Allergies & Rashes': 'Are you plagued by sudden skin allergies and rashes? The persistent itching, redness, and discomfort can be frustrating and make you dread new skin reactions. We provide homoeopathic solutions that calm your body\'s overactive response and offer lasting relief from various skin allergies.',
+        'Oily Skin': 'Constantly fighting against shiny, oily skin and clogged pores? This can lead to frequent breakouts and a dull complexion that\'s difficult to manage. Our natural treatments help regulate oil production from within, leading to a healthier, more balanced complexion and fewer blemishes.'
+      };
+      
+      const homeTreatmentGrid = document.getElementById('homeTreatmentGrid');
+      const treatmentGrid = document.getElementById('treatmentGrid');
+      const summaryPage = document.getElementById('page-summary');
+      const summaryImage = document.getElementById('summary-image');
+      const summaryTitle = document.getElementById('summary-title');
+      const summaryContent = document.getElementById('summary-content');
+      const backButton = document.getElementById('backToTreatments');
+
+      // Function to create a single treatment card element
+      function createTreatmentCardElement(title, imageSrc) {
+        const card = document.createElement('div');
+        card.className = 'soft-card flex items-center gap-4 p-4 cursor-pointer';
+        card.setAttribute('data-open-treatment', title);
+        
+        let cardContent = `
+          <div class="w-20 h-20 overflow-hidden rounded-md flex items-center justify-center">
+            <img src="${imageSrc}" alt="A photo representing ${title} treatment" class="w-full h-full object-cover"/>
+          </div>
+          <div>
+            <h3 class="font-semibold" style="color: #FFFFFF;">${title}</h3>
+          </div>
+        `;
+        card.innerHTML = cardContent;
+        return card;
+      }
+      
+      // Function to display summary page content
+      function openTreatmentSummary(name) {
+        const description = treatments[name];
+        const imageIndex = Object.keys(treatments).indexOf(name) + 1;
+        const imageSrc = `image${imageIndex}.png`;
+        showPage('summary');
+        const summaryTextWithBreaks = description.replace(/\. /g, '. <br><br>');
+        summaryImage.src = imageSrc;
+        summaryImage.alt = `Image for ${name} treatment`;
+        summaryTitle.textContent = name;
+        summaryContent.innerHTML = summaryTextWithBreaks;
+      }
+
+      // Populate home page grid with all treatments
+      Object.keys(treatments).forEach((t, index) => {
+        const imageIndex = Object.keys(treatments).indexOf(t) + 1;
+        const imageSrc = `image${imageIndex}.png`;
+        const card = createTreatmentCardElement(t, imageSrc);
+        card.style.setProperty('--delay', `${(index + 1) * 0.1}s`);
+        card.classList.add('animated-treatment-card');
+        card.addEventListener('click', () => {
+            showPage('treatments');
+        });
+        homeTreatmentGrid.appendChild(card);
+      });
+
+      // Populate treatments page grid with all treatments
+      Object.keys(treatments).forEach((t, index) => {
+        const imageIndex = Object.keys(treatments).indexOf(t) + 1;
+        const imageSrc = `image${imageIndex}.png`;
+        const card = createTreatmentCardElement(t, imageSrc);
+        card.style.setProperty('--delay', `${(index + 1) * 0.1}s`);
+        card.classList.add('animated-treatment-card');
+        card.addEventListener('click', () => {
+          openTreatmentSummary(t);
+        });
+        treatmentGrid.appendChild(card);
+      });
+      
+      // Back button to treatments page
+      backButton.addEventListener('click', () => {
+        showPage('treatments');
+      });
+
+      document.querySelectorAll('[data-nav]').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.preventDefault();
+          const target = btn.dataset.nav;
+          showPage(target);
+          if (window.innerWidth < 768) {
+            closeMobileMenu();
+          }
+        });
+      });
+      const mobileMenu = document.createElement('div');
+      mobileMenu.className = 'fixed top-0 left-0 w-full h-full bg-black bg-opacity-40 z-50 hidden';
+      mobileMenu.innerHTML = `
+        <div class="bg-white w-64 h-full p-6 flex flex-col gap-4">
+          <button id="mobileClose" class="self-end p-2">✕</button>
+          <a href="#home" data-nav="home" class="nav-link nav-button">Home</a>
+          <a href="#treatments" data-nav="treatments" class="nav-link nav-button">Treatments</a>
+          <a href="#aboutus" data-nav="aboutus" class="nav-link nav-button">About Us</a>
+          <a href="#photos" data-nav="photos" class="nav-link nav-button">Photos</a>
+          <a href="#contact" data-nav="contact" class="nav-link nav-button">Contact</a>
+        </div>
+      `;
+      document.body.appendChild(mobileMenu);
+      mobileMenu.querySelectorAll('[data-nav]').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.preventDefault();
+          showPage(btn.dataset.nav);
+          closeMobileMenu();
+        });
+      });
+      document.getElementById('mobileToggle').addEventListener('click', () => mobileMenu.classList.remove('hidden'));
+      document.getElementById('mobileClose').addEventListener('click', closeMobileMenu);
+      mobileMenu.addEventListener('click', e => {
+        if (e.target === mobileMenu) closeMobileMenu();
+      });
+      function closeMobileMenu() {
+        mobileMenu.classList.add('hidden');
+      }
+      
+      const contactForm = document.getElementById('contactForm');
+      const contactMsg = document.getElementById('contactMsg');
+      contactForm.addEventListener('submit', e => {
+        e.preventDefault();
+        contactMsg.classList.remove('hidden');
+        contactForm.reset();
+      });
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      const initial = location.hash ? location.hash.replace('#', '') : 'home';
+      if (!pages.includes(initial)) {
+        showPage('home');
+      } else {
+        showPage(initial);
+      }
+    });
+  </script>
+</body>
+</html>
